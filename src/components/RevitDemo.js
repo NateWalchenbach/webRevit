@@ -5,7 +5,7 @@ import {
   subscribeToWebView2Event,
   unsubscribeToWebView2Event,
   isInWebViewContext,
-} from "../utils/webview2";
+} from "../utils/WebView2";
 
 function RevitDemo() {
   const [elementGuids, setElementGuids] = useState([]);
