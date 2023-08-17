@@ -8,7 +8,9 @@ import {
 } from "../utils/webview2";
 
 function RevitDemo() {
+  // eslint-disable-next-line no-unused-vars
   const [elementGuids, setElementGuids] = useState([]);
+  // eslint-disable-next-line no-unused-vars`
   const [elementGuidsToSelect, setElementGuidsToSelect] = useState([]);
   const isWebView = isInWebViewContext();
 
