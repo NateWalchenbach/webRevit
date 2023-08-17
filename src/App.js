@@ -1,59 +1,64 @@
 import React, { useState, useEffect } from "react";
 
-// WV2EVENTS object and related functions
-export const WV2EVENTS = {
-  SelectionChanged: "SelectionChanged",
-  getEventName(key) {
-    return this[key]?.toLowerCase();
-  },
-};
-
-const eventCaptureElement = document.createElement("a");
-
-// this is called by WebView2 from C#
-window.dispatchWebViewEvent = function dispatchWebViewEvent({
-  action,
-  payload,
-}) {
-  console.log(`dispatch requested ${action}`);
-  const e = WV2EVENTS.getEventName(action);
-  if (e !== undefined) {
-    console.log(`dispatching event ${e}`);
-    console.log(`event payload : ${payload}`);
-    eventCaptureElement.dispatchEvent(new CustomEvent(e, { detail: payload }));
-  }
-};
-
-function subscribeToWebView2Event(eventName, handler) {
-  const e = WV2EVENTS.getEventName(eventName);
-  if (e === undefined) {
-    return;
-  }
-  eventCaptureElement.addEventListener(e, handler);
-}
-
-function unsubscribeToWebView2Event(eventName, handler) {
-  const e = WV2EVENTS.getEventName(eventName);
-  if (e === undefined) {
-    return;
-  }
-  eventCaptureElement.removeEventListener(e, handler);
-}
-
-function postWebView2Message({ action, payload }) {
-  if (!action) {
-    return;
-  }
-  window.chrome?.webview?.postMessage({ action, payload });
-}
-
-function isInWebViewContext() {
-  return !!window.chrome?.webview;
-}
-
 function App() {
   const [elementGuids, setElementGuids] = useState([]);
   const [elementGuidsToSelect, setElementGuidsToSelect] = useState([]);
+  // WV2EVENTS object and related functions
+  const WV2EVENTS = {
+    SelectionChanged: "SelectionChanged",
+    getEventName(key) {
+      return this[key]?.toLowerCase();
+    },
+  };
+
+  const eventCaptureElement = document.createElement("a");
+
+  // this is called by WebView2 from C#
+  window.dispatchWebViewEvent = function dispatchWebViewEvent({
+    action,
+    payload,
+  }) {
+    console.log(`dispatch requested ${action}`);
+    const e = WV2EVENTS.getEventName(action);
+    if (e !== undefined) {
+      console.log(`dispatching event ${e}`);
+      console.log(`event payload : ${payload}`);
+      eventCaptureElement.dispatchEvent(
+        new CustomEvent(e, { detail: payload })
+      );
+    }
+  };
+
+  function subscribeToWebView2Event(eventName, handler) {
+    const e = WV2EVENTS.getEventName(eventName);
+    if (e === undefined) {
+      return;
+    }
+    eventCaptureElement.addEventListener(e, handler);
+  }
+
+  function unsubscribeToWebView2Event(eventName, handler) {
+    const e = WV2EVENTS.getEventName(eventName);
+    if (e === undefined) {
+      return;
+    }
+    eventCaptureElement.removeEventListener(e, handler);
+  }
+
+  function postWebView2Message({ action, payload }) {
+    if (!action) {
+      return;
+    }
+    window.chrome?.webview?.postMessage({ action, payload });
+  }
+
+  function isInWebViewContext() {
+    return !!window.chrome?.webview;
+  }
+
+  function handleElementSelection(id) {
+    // Implement the logic when an element is selected
+  }
 
   useEffect(() => {
     // Subscribe to the WebView2 Event
@@ -129,7 +134,3 @@ function App() {
 }
 
 export default App;
-
-function handleElementSelection(id) {
-  // Implement the logic when an element is selected
-}
