@@ -1,4 +1,3 @@
-// the keys should match enum keys in c#
 export const WV2EVENTS = {
   SelectionChanged: "SelectionChanged",
   getEventName(key) {
@@ -8,7 +7,6 @@ export const WV2EVENTS = {
 
 const eventCaptureElement = document.createElement("a");
 
-// this is called by WebView2 from C#
 window.dispatchWebViewEvent = function dispatchWebViewEvent({
   action,
   payload,
