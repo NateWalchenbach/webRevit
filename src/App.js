@@ -1,12 +1,21 @@
-import React from "react";
-import RevitDemo from "./components/RevitDemo";
-import logo from "./assets/logo.png";
+import "./App.css";
 
 function App() {
   return (
-    <div>
-      <img src={logo} alt="Logo" height="100" />
-      <RevitDemo />
+    <div className="App">
+      <header className="App-header">
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
     </div>
   );
 }
