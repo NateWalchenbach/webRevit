@@ -13,13 +13,13 @@ import {
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#009688", // Teal color
+      main: "#009688",
     },
     secondary: {
-      main: "#000000", // Black color
+      main: "#000000",
     },
     background: {
-      default: "#E0F2F1", // Light teal for background
+      default: "#E0F2F1",
     },
   },
 });
@@ -40,7 +40,7 @@ function RevitDemo() {
     <ThemeProvider theme={theme}>
       <div style={{ padding: "20px" }}>
         <Typography variant="h4" color="secondary" gutterBottom>
-          BPX Meets Revit
+          Barn Pros Web | Revit
         </Typography>
         {!isWebView && (
           <Typography variant="h6" color="secondary" gutterBottom>
