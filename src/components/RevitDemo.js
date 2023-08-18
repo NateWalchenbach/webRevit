@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import {
   WV2EVENTS,
   postWebView2Message,
@@ -6,6 +9,20 @@ import {
   unsubscribeToWebView2Event,
   isInWebViewContext,
 } from "../utils/webview2";
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#009688", // Teal color
+    },
+    secondary: {
+      main: "#000000", // Black color
+    },
+    background: {
+      default: "#E0F2F1", // Light teal for background
+    },
+  },
+});
 
 function RevitDemo() {
   const [elementGuids, setElementGuids] = useState([]);
@@ -20,25 +37,39 @@ function RevitDemo() {
   }, []);
 
   return (
-    <div>
-      <p>BPX Meets Revit</p>
-      {!isWebView && <p>You are not in a WebView Context</p>}
-      <button onClick={() => postWebView2Message({ action: "create-sheet" })}>
-        Create Sheet
-      </button>
-      <button
-        onClick={() =>
-          postWebView2Message({
-            action: "select",
-            payload: elementGuidsToSelect,
-          })
-        }
-        disabled={elementGuidsToSelect.length === 0}
-      >
-        Select From List
-      </button>
-      {/* Display the selected elements here */}
-    </div>
+    <ThemeProvider theme={theme}>
+      <div style={{ padding: "20px" }}>
+        <Typography variant="h4" color="secondary" gutterBottom>
+          BPX Meets Revit
+        </Typography>
+        {!isWebView && (
+          <Typography variant="h6" color="secondary" gutterBottom>
+            You are not in a WebView Context
+          </Typography>
+        )}
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => postWebView2Message({ action: "create-sheet" })}
+          style={{ marginRight: "10px" }}
+        >
+          Create Sheet
+        </Button>
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={() =>
+            postWebView2Message({
+              action: "select",
+              payload: elementGuidsToSelect,
+            })
+          }
+          disabled={elementGuidsToSelect.length === 0}
+        >
+          Select From List
+        </Button>
+      </div>
+    </ThemeProvider>
   );
 }
 
