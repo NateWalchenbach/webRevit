@@ -11,22 +11,17 @@ window.dispatchWebViewEvent = function dispatchWebViewEvent({
   action,
   payload,
 }) {
-  console.log(`dispatch requested ${action}`);
   const e = WV2EVENTS.getEventName(action);
   if (e !== undefined) {
-    console.log(`dispatching event ${e}`);
-    console.log(`event payload : ${payload}`);
     eventCaptureElement.dispatchEvent(new CustomEvent(e, { detail: payload }));
   }
 };
 
 export function subscribeToWebView2Event(eventName, handler) {
   const e = WV2EVENTS.getEventName(eventName);
-  // console.log(`subscribing: ${e}`);
   if (e === undefined) {
     return;
   }
-  // console.log(`subscribed: ${e}`);
   eventCaptureElement.addEventListener(e, handler);
 }
 
